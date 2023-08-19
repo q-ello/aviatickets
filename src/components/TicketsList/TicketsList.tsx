@@ -1,22 +1,23 @@
 import Ticket from "../Ticket/Ticket"
 import Button from "../UI/Button/Button"
 import { SortType, TicketType } from "../../entities/ticket"
-import { getTickets, ticketsSelectors } from "../../redux/ticketsSlice"
+import { getTickets } from "../../redux/ticketsSlice"
 import store from "../../redux"
 import { useAppDispatch, useAppSelector } from "../../hook"
 import st from './TicketsList.module.scss'
 import { tickets } from "../../data"
 import { useMemo } from "react"
+import { selectorFilterCompany, selectorFilterConnection, selectorLoading, selectorSortBy, ticketsSelectors } from "../../redux/selectors"
 
 const TicketsList = () => {
     const allTickets = ticketsSelectors.selectAll(store.getState())
-    const loading = useAppSelector((state) => state.tickets.loading)
+    const loading = useAppSelector(selectorLoading)
     const dispatch = useAppDispatch()
     const amountOfTickets = ticketsSelectors.selectTotal(store.getState())
 
-    const filterConnection = useAppSelector((state) => state.tickets.filterConnection)
-    const filterCompany = useAppSelector((state) => state.tickets.filterCompany)
-    const sortBy = useAppSelector((state) => state.tickets.sortBy)
+    const filterConnection = useAppSelector(selectorFilterConnection)
+    const filterCompany = useAppSelector(selectorFilterCompany)
+    const sortBy = useAppSelector(selectorSortBy)
 
     const ticketsData = useMemo(() => {
         let array = allTickets.filter(a => filterConnection.includes(a.connectionAmount.amount)).filter(a => filterCompany.includes(a.companyName))

@@ -54,3 +54,13 @@ export interface CheckBoxType {
     id: ConnectionAmount | CompanyName,
     text: ConnectionText | CompanyName
 }
+
+export enum FiltersTotal {
+    Company = 3,
+    Connection = 4
+}
+
+export enum FilterType {
+    Company = 'company',
+    Connection = 'connection'
+}

@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react'
-import { CheckBoxType } from '../../../entities/ticket'
+import { CheckBoxType, FilterType } from '../../../entities/ticket'
 import st from './Checkbox.module.scss'
 import { useAppDispatch } from '../../../hook'
 import { toggleFilter } from '../../../redux/ticketsSlice'
@@ -7,7 +7,7 @@ import { toggleFilter } from '../../../redux/ticketsSlice'
 interface CheckboxProps {
   options: CheckBoxType[],
   text: string,
-  filter: 'connection' | 'company',
+  filter: FilterType,
   checkedOptions: string[]
 }
 
