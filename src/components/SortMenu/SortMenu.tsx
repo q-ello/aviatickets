@@ -1,12 +1,13 @@
 import { SortButtons } from '../../data'
 import { useAppDispatch, useAppSelector } from '../../hook'
+import { selectorSortBy } from '../../redux/selectors'
 import { sortTickets } from '../../redux/ticketsSlice'
 import Button from '../UI/Button/Button'
 import st from './SortMenu.module.scss'
 
 
 const SortMenu = () => {
-  const sortBy = useAppSelector((state) => state.tickets.sortBy)
+  const sortBy = useAppSelector(selectorSortBy)
   const dispatch = useAppDispatch()
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {

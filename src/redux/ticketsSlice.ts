@@ -1,9 +1,8 @@
 import { PayloadAction, createAsyncThunk, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
-import { CompanyName, ConnectionAmount, SortType, TicketType } from "../entities/ticket";
+import { CompanyName, ConnectionAmount, FilterType, SortType, TicketType } from "../entities/ticket";
 import { tickets } from "../data";
-import { RootState } from ".";
 
-const ticketsAdapter = createEntityAdapter<TicketType>()
+export const ticketsAdapter = createEntityAdapter<TicketType>()
 
 const ticketsData = (index: number): Promise<TicketType[]> => new Promise(resolve => {
     setTimeout(() => resolve(tickets.slice(index, index + 3)), 1500);
@@ -29,7 +28,7 @@ export const ticketsSlice = createSlice({
         toggleFilter(state, action: PayloadAction<{ value: string, filter: string }>) {
             const value = action.payload.value
             const filter = action.payload.filter
-            if (filter === 'connection') {
+            if (filter === FilterType.Connection) {
                 if (state.filterConnection.includes(value)) {
                     state.filterConnection = state.filterConnection.filter(a => a !== value)
                 } else {
@@ -37,7 +36,7 @@ export const ticketsSlice = createSlice({
                 }
                 state.filterConnection.sort((a, b) => a.localeCompare(b))
 
-            } else if (filter === 'company') {
+            } else if (filter === FilterType.Company) {
                 if (state.filterCompany.includes(value)) {
                     state.filterCompany = state.filterCompany.filter(a => a !== value)
                 } else {
@@ -57,10 +56,5 @@ export const ticketsSlice = createSlice({
         })
     }
 })
-
-
-export const ticketsSelectors = ticketsAdapter.getSelectors<RootState>(
-    (state) => state.tickets
-)
 
 export const { sortTickets, toggleFilter } = ticketsSlice.actions
